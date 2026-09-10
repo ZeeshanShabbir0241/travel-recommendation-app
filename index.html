@@ -9,6 +9,25 @@
     body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; }
     nav { background-color: #2c3e50; color: white; display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; }
     nav a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; }
+    <nav>
+  <!-- 1. Home Link -->
+  <a href="index.html">Home</a>
+
+  <!-- 2. About Us Link -->
+  <a href="about.html">About Us</a>
+
+  <!-- 3. Contact Us Link -->
+  <a href="contact.html">Contact Us</a>
+
+  <!-- 4. Search Bar Input Box -->
+  <input type="text" id="searchInput" placeholder="Search beaches, temples, country...">
+
+  <!-- 5. Search Button -->
+  <button onclick="searchRecommendations()">Search</button>
+
+  <!-- 6. Clear Button -->
+  <button onclick="clearResults()">Clear</button>
+</nav>
     nav a:hover { text-decoration: underline; }
     .search-container { display: flex; gap: 10px; }
     .search-container input { padding: 8px; border: none; border-radius: 4px; }
