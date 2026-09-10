@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TravelBloom - Home</title>
+  <title>TravelBloom - Travel Recommendation Web Application</title>
   <style>
     * {
       box-sizing: border-box;
@@ -13,7 +13,7 @@
     }
 
     body {
-      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+      background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), 
                   url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
       background-size: cover;
       color: #fff;
@@ -22,7 +22,7 @@
       flex-direction: column;
     }
 
-    /* Task 5: Navigation Bar Styling */
+    /* Task 5: Navigation Bar Styling (6 Elements) */
     nav {
       display: flex;
       justify-content: space-between;
@@ -32,6 +32,7 @@
       position: sticky;
       top: 0;
       z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
 
     .logo {
@@ -43,14 +44,14 @@
     .nav-links {
       display: flex;
       list-style: none;
-      gap: 20px;
+      gap: 25px;
     }
 
     .nav-links a {
       color: #fff;
       text-decoration: none;
       font-size: 16px;
-      transition: color 0.3s;
+      transition: color 0.3s ease;
     }
 
     .nav-links a:hover {
@@ -63,18 +64,25 @@
     }
 
     .search-box input {
-      padding: 8px 12px;
+      padding: 8px 14px;
       border: none;
       border-radius: 4px;
       outline: none;
+      font-size: 14px;
     }
 
     .search-box button {
-      padding: 8px 15px;
+      padding: 8px 16px;
       border: none;
       border-radius: 4px;
       cursor: pointer;
       font-weight: bold;
+      font-size: 14px;
+      transition: opacity 0.2s ease;
+    }
+
+    .search-box button:hover {
+      opacity: 0.9;
     }
 
     .btn-search {
@@ -87,12 +95,13 @@
       color: #fff;
     }
 
-    /* Container Structure */
+    /* Container & Layout */
     .container {
       max-width: 1200px;
       margin: 40px auto;
       padding: 20px;
       flex: 1;
+      width: 100%;
     }
 
     .intro-section {
@@ -112,7 +121,7 @@
       line-height: 1.6;
     }
 
-    /* Cards Grid Layout */
+    /* Cards Grid */
     .results-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -125,7 +134,12 @@
       color: #333;
       border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
     }
 
     .card img {
@@ -146,7 +160,18 @@
     .card-body p {
       font-size: 14px;
       color: #555;
-      line-height: 1.4;
+      line-height: 1.5;
+    }
+
+    .no-results {
+      text-align: center;
+      width: 100%;
+      grid-column: 1 / -1;
+      font-size: 18px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 6px;
     }
 
     footer {
@@ -154,23 +179,22 @@
       padding: 15px;
       background-color: rgba(0, 0, 0, 0.9);
       margin-top: auto;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Navigation Bar (6 Elements) -->
+  <!-- Navigation Bar (Task 5: Home, About Us, Contact Us, Search Input, Search Btn, Clear Btn) -->
   <nav>
     <div class="logo">TravelBloom</div>
     
-    <!-- Links (Home, About Us, Contact Us) -->
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About Us</a></li>
       <li><a href="contact.html">Contact Us</a></li>
     </ul>
 
-    <!-- Search Box (Input, Search Button, Clear Button) -->
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="Enter beach, temple, country...">
       <button class="btn-search" onclick="searchRecommendations()">Search</button>
@@ -178,14 +202,13 @@
     </div>
   </nav>
 
-  <!-- Main Content -->
+  <!-- Main Introduction and Results Container -->
   <div class="container">
     <div class="intro-section">
       <h1>Explore The World With TravelBloom</h1>
       <p>Welcome to TravelBloom, your ultimate travel companion. Whether you are looking for serene tropical beaches, ancient spiritual temples, or vibrant cities around the world, we provide tailored recommendations to inspire your next adventure.</p>
     </div>
 
-    <!-- Container for dynamic results -->
     <div id="resultsContainer" class="results-grid"></div>
   </div>
 
@@ -193,40 +216,54 @@
     <p>&copy; 2026 TravelBloom. All rights reserved.</p>
   </footer>
 
-  <!-- Link External JS File -->
-  <script src="script.js">// Function to search travel recommendations
+  <!-- Include JavaScript File -->
+  <script src="script.js">// Wait for DOM content to load to attach event listeners
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById('searchInput');
+
+  // Allow pressing "Enter" key inside search input to trigger search
+  if (searchInput) {
+    searchInput.addEventListener('keypress', (event) => {
+      if (event.key === 'Enter') {
+        searchRecommendations();
+      }
+    });
+  }
+});
+
+// Main function to search travel recommendations
 function searchRecommendations() {
   const input = document.getElementById('searchInput').value.toLowerCase().trim();
   const resultsContainer = document.getElementById('resultsContainer');
 
-  // Clear previous results
+  // Clear previous search results
   resultsContainer.innerHTML = '';
 
   if (!input) {
-    alert('Please enter a keyword like "beach", "temple", or a country name such as "Australia".');
+    alert('Please enter a search keyword such as "beach", "temple", or a country name like "Australia" or "Japan".');
     return;
   }
 
-  // Fetch data from local API file
+  // Fetch travel recommendations from JSON file
   fetch('travel_recommendation_api.json')
     .then(response => {
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error('Failed to load travel data.');
       }
       return response.json();
     })
     .then(data => {
       let results = [];
 
-      // Task 6: Beach keyword matching
+      // Task 6: Search "beach" or "beaches"
       if (input.includes('beach')) {
         results = data.beaches;
       } 
-      // Task 7: Temple keyword matching
+      // Task 7: Search "temple" or "temples"
       else if (input.includes('temple')) {
         results = data.temples;
       } 
-      // Task 8: Country keyword matching
+      // Task 8: Search by country name (e.g. "Australia", "Japan")
       else {
         const matchedCountry = data.countries.find(country => 
           country.name.toLowerCase().includes(input)
@@ -236,13 +273,13 @@ function searchRecommendations() {
         }
       }
 
-      // Handle no results case
+      // Handle empty search results
       if (results.length === 0) {
-        resultsContainer.innerHTML = '<p style="text-align: center; width: 100%; grid-column: 1/-1; color: #fff;">No recommendations found. Try searching for "beach", "temple", "Australia", or "Japan".</p>';
+        resultsContainer.innerHTML = '<p class="no-results">No matching recommendations found. Try searching for "beach", "temple", "Australia", or "Japan".</p>';
         return;
       }
 
-      // Render recommendation cards (2 images per category minimum)
+      // Render recommendation cards (Each category displays 2 images/recommendations)
       results.forEach(item => {
         const card = document.createElement('div');
         card.className = 'card';
@@ -257,12 +294,12 @@ function searchRecommendations() {
       });
     })
     .catch(error => {
-      console.error('Error loading recommendations:', error);
-      resultsContainer.innerHTML = '<p style="text-align: center; width: 100%; grid-column: 1/-1; color: #fff;">Error fetching data. Verify travel_recommendation_api.json is in your main directory.</p>';
+      console.error('Error fetching data:', error);
+      resultsContainer.innerHTML = '<p class="no-results">Error loading recommendations. Please make sure travel_recommendation_api.json is in your root directory.</p>';
     });
 }
 
-// Function to clear input field and wipe results
+// Function to clear input field and wipe recommendations display
 function clearResults() {
   document.getElementById('searchInput').value = '';
   document.getElementById('resultsContainer').innerHTML = '';
