@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TravelBloom - Travel Recommendation Web Application</title>
+  <title>TravelBloom - Home</title>
   <style>
     * {
       box-sizing: border-box;
@@ -22,7 +22,7 @@
       flex-direction: column;
     }
 
-    /* Navigation Bar */
+    /* Task 5: Navigation Bar Styling */
     nav {
       display: flex;
       justify-content: space-between;
@@ -32,7 +32,6 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
 
     .logo {
@@ -88,7 +87,7 @@
       color: #fff;
     }
 
-    /* Page Container */
+    /* Container Structure */
     .container {
       max-width: 1200px;
       margin: 40px auto;
@@ -96,15 +95,6 @@
       flex: 1;
     }
 
-    .page {
-      display: none;
-    }
-
-    .active-page {
-      display: block;
-    }
-
-    /* Home Page */
     .intro-section {
       text-align: center;
       max-width: 800px;
@@ -122,7 +112,7 @@
       line-height: 1.6;
     }
 
-    /* Recommendation Cards */
+    /* Cards Grid Layout */
     .results-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -159,101 +149,28 @@
       line-height: 1.4;
     }
 
-    /* About Us Page */
-    .about-content {
-      background-color: rgba(0, 0, 0, 0.75);
-      padding: 30px;
-      border-radius: 8px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .about-content h2 {
-      color: #00bcd4;
-      margin-bottom: 15px;
-    }
-
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .team-member {
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 15px;
-      border-radius: 6px;
-      text-align: center;
-    }
-
-    /* Contact Us Page */
-    .contact-form {
-      background-color: rgba(0, 0, 0, 0.75);
-      padding: 30px;
-      border-radius: 8px;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .contact-form h2 {
-      color: #00bcd4;
-      margin-bottom: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .form-group input, .form-group textarea {
-      width: 100%;
-      padding: 10px;
-      border-radius: 4px;
-      border: none;
-      outline: none;
-    }
-
-    .form-group textarea {
-      height: 100px;
-      resize: vertical;
-    }
-
-    .btn-submit {
-      background-color: #00bcd4;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-      width: 100%;
-    }
-
-    /* Footer */
     footer {
       text-align: center;
       padding: 15px;
       background-color: rgba(0, 0, 0, 0.9);
       margin-top: auto;
-      font-size: 14px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Navigation Bar -->
+  <!-- Navigation Bar (6 Elements) -->
   <nav>
     <div class="logo">TravelBloom</div>
+    
+    <!-- Links (Home, About Us, Contact Us) -->
     <ul class="nav-links">
-      <li><a href="#" onclick="showPage('home')">Home</a></li>
-      <li><a href="#" onclick="showPage('about')">About Us</a></li>
-      <li><a href="#" onclick="showPage('contact')">Contact Us</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
     </ul>
+
+    <!-- Search Box (Input, Search Button, Clear Button) -->
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="Enter beach, temple, country...">
       <button class="btn-search" onclick="searchRecommendations()">Search</button>
@@ -261,143 +178,94 @@
     </div>
   </nav>
 
+  <!-- Main Content -->
   <div class="container">
-    <!-- HOME PAGE -->
-    <section id="home" class="page active-page">
-      <div class="intro-section">
-        <h1>Explore The World With TravelBloom</h1>
-        <p>Welcome to TravelBloom, your ultimate travel companion. Whether you are looking for serene tropical beaches, ancient spiritual temples, or vibrant cities around the world, we provide tailored recommendations to inspire your next adventure.</p>
-      </div>
+    <div class="intro-section">
+      <h1>Explore The World With TravelBloom</h1>
+      <p>Welcome to TravelBloom, your ultimate travel companion. Whether you are looking for serene tropical beaches, ancient spiritual temples, or vibrant cities around the world, we provide tailored recommendations to inspire your next adventure.</p>
+    </div>
 
-      <div id="resultsContainer" class="results-grid"></div>
-    </section>
-
-    <!-- ABOUT US PAGE -->
-    <section id="about" class="page">
-      <div class="about-content">
-        <h2>About TravelBloom</h2>
-        <p>TravelBloom was founded to make travel exploration seamless, inspiring, and accessible to everyone. Our mission is to connect travelers with extraordinary destinations around the globe.</p>
-        <br>
-        <h3>Our Team</h3>
-        <div class="team-grid">
-          <div class="team-member">
-            <h4>Jane Doe</h4>
-            <p>Founder & CEO</p>
-          </div>
-          <div class="team-member">
-            <h4>John Smith</h4>
-            <p>Lead Developer</p>
-          </div>
-          <div class="team-member">
-            <h4>Emily Brown</h4>
-            <p>Travel Specialist</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT US PAGE -->
-    <section id="contact" class="page">
-      <div class="contact-form">
-        <h2>Contact Us</h2>
-        <form id="contactForm" onsubmit="handleContactSubmit(event)">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" required placeholder="Your Full Name">
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" required placeholder="your.email@example.com">
-          </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" required placeholder="How can we help you?"></textarea>
-          </div>
-          <button type="submit" class="btn-submit">Send Message</button>
-        </form>
-      </div>
-    </section>
+    <!-- Container for dynamic results -->
+    <div id="resultsContainer" class="results-grid"></div>
   </div>
 
   <footer>
     <p>&copy; 2026 TravelBloom. All rights reserved.</p>
   </footer>
 
-  <!-- JavaScript Code -->
-  <script>
-    // Page Switcher Navigation
-    function showPage(pageId) {
-      const pages = document.querySelectorAll('.page');
-      pages.forEach(page => page.classList.remove('active-page'));
-      document.getElementById(pageId).classList.add('active-page');
-    }
+  <!-- Link External JS File -->
+  <script src="script.js">// Function to search travel recommendations
+function searchRecommendations() {
+  const input = document.getElementById('searchInput').value.toLowerCase().trim();
+  const resultsContainer = document.getElementById('resultsContainer');
 
-    // Search Recommendations Function
-    function searchRecommendations() {
-      const input = document.getElementById('searchInput').value.toLowerCase().trim();
-      const resultsContainer = document.getElementById('resultsContainer');
-      resultsContainer.innerHTML = '';
+  // Clear previous results
+  resultsContainer.innerHTML = '';
 
-      if (!input) {
-        alert('Please enter a search term (e.g., beach, temple, Australia, Japan).');
+  if (!input) {
+    alert('Please enter a keyword like "beach", "temple", or a country name such as "Australia".');
+    return;
+  }
+
+  // Fetch data from local API file
+  fetch('travel_recommendation_api.json')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      let results = [];
+
+      // Task 6: Beach keyword matching
+      if (input.includes('beach')) {
+        results = data.beaches;
+      } 
+      // Task 7: Temple keyword matching
+      else if (input.includes('temple')) {
+        results = data.temples;
+      } 
+      // Task 8: Country keyword matching
+      else {
+        const matchedCountry = data.countries.find(country => 
+          country.name.toLowerCase().includes(input)
+        );
+        if (matchedCountry) {
+          results = matchedCountry.cities;
+        }
+      }
+
+      // Handle no results case
+      if (results.length === 0) {
+        resultsContainer.innerHTML = '<p style="text-align: center; width: 100%; grid-column: 1/-1; color: #fff;">No recommendations found. Try searching for "beach", "temple", "Australia", or "Japan".</p>';
         return;
       }
 
-      showPage('home'); // Ensure search results are viewed on Home tab
+      // Render recommendation cards (2 images per category minimum)
+      results.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${item.imageUrl}" alt="${item.name}">
+          <div class="card-body">
+            <h3>${item.name}</h3>
+            <p>${item.description}</p>
+          </div>
+        `;
+        resultsContainer.appendChild(card);
+      });
+    })
+    .catch(error => {
+      console.error('Error loading recommendations:', error);
+      resultsContainer.innerHTML = '<p style="text-align: center; width: 100%; grid-column: 1/-1; color: #fff;">Error fetching data. Verify travel_recommendation_api.json is in your main directory.</p>';
+    });
+}
 
-      fetch('travel_recommendation_api.json')
-        .then(response => response.json())
-        .then(data => {
-          let results = [];
-
-          if (input.includes('beach')) {
-            results = data.beaches;
-          } else if (input.includes('temple')) {
-            results = data.temples;
-          } else {
-            // Check country match
-            const matchedCountry = data.countries.find(c => c.name.toLowerCase().includes(input));
-            if (matchedCountry) {
-              results = matchedCountry.cities;
-            }
-          }
-
-          if (results.length === 0) {
-            resultsContainer.innerHTML = '<p style="text-align: center; width: 100%; grid-column: 1/-1;">No results found. Try searching for "beach", "temple", "Australia", or "Japan".</p>';
-            return;
-          }
-
-          results.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-              <img src="${item.imageUrl}" alt="${item.name}">
-              <div class="card-body">
-                <h3>${item.name}</h3>
-                <p>${item.description}</p>
-              </div>
-            `;
-            resultsContainer.appendChild(card);
-          });
-        })
-        .catch(error => {
-          console.error('Error fetching data:', error);
-          resultsContainer.innerHTML = '<p style="text-align: center; width: 100%; grid-column: 1/-1;">Error loading recommendations.</p>';
-        });
-    }
-
-    // Clear Search Function
-    function clearResults() {
-      document.getElementById('searchInput').value = '';
-      document.getElementById('resultsContainer').innerHTML = '';
-    }
-
-    // Contact Form Handler
-    function handleContactSubmit(event) {
-      event.preventDefault();
-      alert('Thank you for contacting TravelBloom! We will get back to you shortly.');
-      document.getElementById('contactForm').reset();
-    }
-  </script>
+// Function to clear input field and wipe results
+function clearResults() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('resultsContainer').innerHTML = '';
+}</script>
 </body>
 </html>
