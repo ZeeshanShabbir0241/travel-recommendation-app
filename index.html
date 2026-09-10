@@ -22,7 +22,6 @@
       flex-direction: column;
     }
 
-    /* Task 5: Navigation Bar Styling (6 Elements) */
     nav {
       display: flex;
       justify-content: space-between;
@@ -95,7 +94,6 @@
       color: #fff;
     }
 
-    /* Container & Layout */
     .container {
       max-width: 1200px;
       margin: 40px auto;
@@ -121,7 +119,6 @@
       line-height: 1.6;
     }
 
-    /* Cards Grid */
     .results-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -185,7 +182,6 @@
 </head>
 <body>
 
-  <!-- Navigation Bar (Task 5: Home, About Us, Contact Us, Search Input, Search Btn, Clear Btn) -->
   <nav>
     <div class="logo">TravelBloom</div>
     
@@ -202,7 +198,6 @@
     </div>
   </nav>
 
-  <!-- Main Introduction and Results Container -->
   <div class="container">
     <div class="intro-section">
       <h1>Explore The World With TravelBloom</h1>
@@ -216,12 +211,10 @@
     <p>&copy; 2026 TravelBloom. All rights reserved.</p>
   </footer>
 
-  <!-- Include JavaScript File -->
-  <script src="script.js">// Wait for DOM content to load to attach event listeners
+  <script src="script.js">// Attach Enter key event listener on load
 document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('searchInput');
 
-  // Allow pressing "Enter" key inside search input to trigger search
   if (searchInput) {
     searchInput.addEventListener('keypress', (event) => {
       if (event.key === 'Enter') {
@@ -231,12 +224,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Main function to search travel recommendations
+// Main search function
 function searchRecommendations() {
   const input = document.getElementById('searchInput').value.toLowerCase().trim();
   const resultsContainer = document.getElementById('resultsContainer');
 
-  // Clear previous search results
+  // Clear previous results
   resultsContainer.innerHTML = '';
 
   if (!input) {
@@ -244,7 +237,7 @@ function searchRecommendations() {
     return;
   }
 
-  // Fetch travel recommendations from JSON file
+  // Fetch API data
   fetch('travel_recommendation_api.json')
     .then(response => {
       if (!response.ok) {
@@ -255,37 +248,43 @@ function searchRecommendations() {
     .then(data => {
       let results = [];
 
-      // Task 6: Search "beach" or "beaches"
+      // Keyword 1: Beach / Beaches
       if (input.includes('beach')) {
-        results = data.beaches;
+        results = data.beaches || [];
       } 
-      // Task 7: Search "temple" or "temples"
+      // Keyword 2: Temple / Temples
       else if (input.includes('temple')) {
-        results = data.temples;
+        results = data.temples || [];
       } 
-      // Task 8: Search "country" or "countries" (Returns cities from multiple countries)
+      // Keyword 3: Country / Countries (Returns cities from ALL countries)
       else if (input.includes('country') || input.includes('countries')) {
-        data.countries.forEach(country => {
-          results.push(...country.cities);
-        });
-      }
-      // Specific Country Search (e.g. "Australia", "Japan")
+        if (data.countries) {
+          data.countries.forEach(country => {
+            if (country.cities) {
+              results.push(...country.cities);
+            }
+          });
+        }
+      } 
+      // Keyword 4: Specific Country Name (e.g., "Australia", "Japan", "Brazil")
       else {
-        const matchedCountry = data.countries.find(country => 
-          country.name.toLowerCase().includes(input)
-        );
-        if (matchedCountry) {
-          results = matchedCountry.cities;
+        if (data.countries) {
+          const matchedCountry = data.countries.find(country => 
+            country.name.toLowerCase().includes(input) || input.includes(country.name.toLowerCase())
+          );
+          if (matchedCountry && matchedCountry.cities) {
+            results = matchedCountry.cities;
+          }
         }
       }
 
-      // Handle empty search results
+      // Handle no matching results
       if (results.length === 0) {
         resultsContainer.innerHTML = '<p class="no-results">No matching recommendations found. Try searching for "beach", "temple", "country", "Australia", or "Japan".</p>';
         return;
       }
 
-      // Render recommendation cards (Each category displays at least 2 images/recommendations)
+      // Render cards
       results.forEach(item => {
         const card = document.createElement('div');
         card.className = 'card';
@@ -301,11 +300,11 @@ function searchRecommendations() {
     })
     .catch(error => {
       console.error('Error fetching data:', error);
-      resultsContainer.innerHTML = '<p class="no-results">Error loading recommendations. Please make sure travel_recommendation_api.json is in your root directory.</p>';
+      resultsContainer.innerHTML = '<p class="no-results">Error loading recommendations. Ensure you are running a live server and travel_recommendation_api.json exists in your root folder.</p>';
     });
 }
 
-// Function to clear input field and wipe recommendations display
+// Clear search input and results container
 function clearResults() {
   document.getElementById('searchInput').value = '';
   document.getElementById('resultsContainer').innerHTML = '';
