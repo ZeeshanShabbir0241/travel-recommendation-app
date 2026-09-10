@@ -1,4 +1,4 @@
-// Travel recommendation dataset
+// Dataset containing recommendations for Beaches, Temples, and Countries
 const travelData = {
   beaches: [
     {
@@ -26,14 +26,14 @@ const travelData = {
   ],
   countries: [
     {
-      name: "Tokyo, Japan",
+      name: "Japan",
       imageUrl: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=800&q=80",
-      description: "A dynamic metropolis blending neon-lit skyscrapers with historic temples and world-class cuisine."
+      description: "An extraordinary country offering a seamless mix of historic temples, vibrant cities like Tokyo, and iconic scenery like Mount Fuji."
     },
     {
-      name: "Kyoto, Japan",
-      imageUrl: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80",
-      description: "The cultural heart of Japan, featuring traditional wooden houses, classical gardens, and imperial palaces."
+      name: "Brazil",
+      imageUrl: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=800&q=80",
+      description: "A diverse country known for its tropical rainforests, world-famous beaches, iconic landmarks like Christ the Redeemer, and rich culture."
     }
   ]
 };
@@ -43,11 +43,11 @@ function searchRecommendations() {
   const input = document.getElementById('searchInput').value.toLowerCase().trim();
   const resultsContainer = document.getElementById('results');
   
-  // Clear previous results
+  // Clear previous search output
   resultsContainer.innerHTML = '';
 
   if (!input) {
-    resultsContainer.innerHTML = '<p style="text-align:center; width:100%;">Please enter a search term (e.g., "beach", "temple", "japan").</p>';
+    resultsContainer.innerHTML = '<p style="text-align:center; width:100%;">Please enter a search term (e.g., "beach", "temple", "country").</p>';
     return;
   }
 
@@ -58,14 +58,14 @@ function searchRecommendations() {
     itemsToDisplay = travelData.beaches;
   } else if (input.includes('temple')) {
     itemsToDisplay = travelData.temples;
-  } else if (input.includes('japan') || input.includes('country') || input.includes('countries')) {
+  } else if (input.includes('country') || input.includes('countries') || input.includes('japan') || input.includes('brazil')) {
     itemsToDisplay = travelData.countries;
   } else {
-    resultsContainer.innerHTML = '<p style="text-align:center; width:100%;">No matches found. Try searching for "beach", "temple", or "japan".</p>';
+    resultsContainer.innerHTML = '<p style="text-align:center; width:100%;">No matches found. Try searching for "beach", "temple", or "country".</p>';
     return;
   }
 
-  // Render cards to the DOM
+  // Render cards to DOM
   itemsToDisplay.forEach(item => {
     const card = document.createElement('div');
     card.className = 'card';
@@ -78,7 +78,7 @@ function searchRecommendations() {
   });
 }
 
-// Clear search input and displayed cards
+// Clear button functionality
 function clearResults() {
   document.getElementById('searchInput').value = '';
   document.getElementById('results').innerHTML = '';
