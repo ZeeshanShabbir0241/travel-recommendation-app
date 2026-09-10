@@ -1,1 +1,81 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TravelBloom - About Us</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                  url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 15px 40px;
+    }
+    .logo { font-size: 24px; font-weight: bold; color: #00bcd4; }
+    .nav-links { display: flex; list-style: none; gap: 20px; }
+    .nav-links a { color: #fff; text-decoration: none; font-size: 16px; }
+    .nav-links a:hover { color: #00bcd4; }
+    .container { max-width: 900px; margin: 40px auto; padding: 20px; flex: 1; }
+    .about-content { background-color: rgba(0, 0, 0, 0.75); padding: 30px; border-radius: 8px; }
+    .about-content h2, .about-content h3 { color: #00bcd4; margin-bottom: 15px; }
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
+    .team-member { background-color: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 6px; text-align: center; }
+    footer { text-align: center; padding: 15px; background-color: rgba(0, 0, 0, 0.9); margin-top: auto; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">TravelBloom</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div class="about-content">
+      <h2>About TravelBloom</h2>
+      <p>TravelBloom was founded to make travel exploration seamless, inspiring, and accessible to everyone. Our mission is to connect travelers with extraordinary destinations around the globe, from serene beaches to rich historical cultures and world heritage sites.</p>
+      
+      <br>
+      <h3>Our Team & Guidance</h3>
+      <p>Our dedicated global team works together to curate reliable recommendations and build user-centric travel tools.</p>
+      
+      <div class="team-grid">
+        <div class="team-member">
+          <h4>Jane Doe</h4>
+          <p><strong>Founder & CEO</strong></p>
+          <p style="font-size: 12px; margin-top: 5px;">Leads strategic vision and global partnerships.</p>
+        </div>
+        <div class="team-member">
+          <h4>John Smith</h4>
+          <p><strong>Lead Developer</strong></p>
+          <p style="font-size: 12px; margin-top: 5px;">Manages web architecture and search features.</p>
+        </div>
+        <div class="team-member">
+          <h4>Emily Brown</h4>
+          <p><strong>Travel Specialist</strong></p>
+          <p style="font-size: 12px; margin-top: 5px;">Curates destination lists and user travel guides.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 TravelBloom. All rights reserved.</p>
+  </footer>
+</body>
+</html>
