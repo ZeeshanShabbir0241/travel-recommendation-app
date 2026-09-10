@@ -240,7 +240,7 @@ function searchRecommendations() {
   resultsContainer.innerHTML = '';
 
   if (!input) {
-    alert('Please enter a search keyword such as "beach", "temple", or a country name like "Australia" or "Japan".');
+    alert('Please enter a search keyword such as "beach", "temple", "country", "Australia", or "Japan".');
     return;
   }
 
@@ -263,7 +263,13 @@ function searchRecommendations() {
       else if (input.includes('temple')) {
         results = data.temples;
       } 
-      // Task 8: Search by country name (e.g. "Australia", "Japan")
+      // Task 8: Search "country" or "countries" (Returns cities from multiple countries)
+      else if (input.includes('country') || input.includes('countries')) {
+        data.countries.forEach(country => {
+          results.push(...country.cities);
+        });
+      }
+      // Specific Country Search (e.g. "Australia", "Japan")
       else {
         const matchedCountry = data.countries.find(country => 
           country.name.toLowerCase().includes(input)
@@ -275,11 +281,11 @@ function searchRecommendations() {
 
       // Handle empty search results
       if (results.length === 0) {
-        resultsContainer.innerHTML = '<p class="no-results">No matching recommendations found. Try searching for "beach", "temple", "Australia", or "Japan".</p>';
+        resultsContainer.innerHTML = '<p class="no-results">No matching recommendations found. Try searching for "beach", "temple", "country", "Australia", or "Japan".</p>';
         return;
       }
 
-      // Render recommendation cards (Each category displays 2 images/recommendations)
+      // Render recommendation cards (Each category displays at least 2 images/recommendations)
       results.forEach(item => {
         const card = document.createElement('div');
         card.className = 'card';
